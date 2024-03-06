@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import { config } from 'dotenv'
 import { Server } from 'http'
 import router from './utils/router'
+import instantiateDB from './utils/postgreDB'
 
 require('express-async-errors')
 
@@ -25,15 +26,22 @@ app.use(helmet.frameguard({ action: 'SAMEORIGIN' }))
 app.use(cors({ origin: true, credentials: true }))
 app.use(compression())
 app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use(express.json())
 
 if (process.env.NODE_ENV !== 'testing') {
   // Set the public directory
   app.use(express.static('public'))
-}
 
-// Run router function to launch endpoints
-app.use(router())
+  const dbClient = instantiateDB()
+    .then(res => {
+      app.use(router(res))
+    })
+    .catch(error => {
+      console.error('Application error:', error)
+    })
+
+  dbClient
+}
 
 // prioritize environment variables
 const port = process.env.PORT ? parseInt(process.env.PORT) : 8000
@@ -48,4 +56,3 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 
 export default app
-
