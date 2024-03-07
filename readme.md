@@ -24,7 +24,7 @@ installation of postgres.
 
 This endpoint retrieves all of the products for the vendor. Your goal is to call this from the frontend and display all of the results. Ensure you send a valid vendor id in the url to retrieve the correct vendor products
 
-`GET` `/vendor-fees/:vendor_id`
+`GET` `/vendors/:vendor_id/fees`
 
 This endpoint retrieves the associated fees for this specific vendor. Upon customer checkout, you would need to call this endpoint and provide the related fees to the customer.
 

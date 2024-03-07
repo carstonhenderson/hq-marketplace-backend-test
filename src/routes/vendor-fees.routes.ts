@@ -13,13 +13,13 @@ import getVendorFees from '../utils/queries/getVendorFees'
  * @throws {Error} If there is an error during database query.
  *
  * @example
- * // GET /vendor-fees/:vendor_id
+ * // GET /vendors/:vendor_id/fees
  * // Returns an array of products from vendor 1.
  */
 
 export default function (router: Router, db: any) {
   router.get(
-    '/vendor-fees/:vendor_id',
+    '/vendors/:vendor_id/fees',
     async (_req: Request, res: Response) => {
       try {
         const response = await db.query(getVendorFees(_req.params.vendor_id))
