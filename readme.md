@@ -20,11 +20,11 @@ installation of postgres.
 
 ### Product retrieval
 
-`GET` `/products`
+`GET` `/vendors/:vendor_id/products`
 
-This endpoint retrieves all of the products for the vendor. Your goal is to call this from the frontend and display all of the results.
+This endpoint retrieves all of the products for the vendor. Your goal is to call this from the frontend and display all of the results. Ensure you send a valid vendor id in the url to retrieve the correct vendor products
 
-`GET` `/vendor-fees`
+`GET` `/vendor-fees/:vendor_id`
 
 This endpoint retrieves the associated fees for this specific vendor. Upon customer checkout, you would need to call this endpoint and provide the related fees to the customer.
 
@@ -74,6 +74,11 @@ P.S. You can hardcode the vendor_id as 1 for the test
             }
         }
     ]
+    "fees":{
+        "standard_delivery":1200,
+        "processing_fee": 999,
+        "service_fee": 399
+    }
 }`
 
 After validation this endpoint should create the corresponding database

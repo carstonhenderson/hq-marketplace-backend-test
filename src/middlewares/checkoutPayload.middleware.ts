@@ -4,10 +4,10 @@ import { Handler } from 'express'
 
 const checkoutPayloadValidation: Handler = async (req, res, next) => {
   const payload = req.body
-  const { customer_name, cart } = payload
+  const { customer_name, cart, fees } = payload
 
   // Check if customer_name and cart exist in the payload
-  if (!customer_name || !cart) {
+  if (!customer_name || !cart || !fees) {
     return res.status(500).json({ error: 'Payload is missing required fields' })
   }
 

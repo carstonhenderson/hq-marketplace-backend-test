@@ -23,6 +23,12 @@ export type cart = {
   delivery_address: deliveryAddress
 }
 
+export type fees = {
+  standard_delivery: number
+  processing_fee: number
+  service_fee: number
+}
+
 export type deliveryAddress = {
   delivery_address_name: string
   delivery_address_line_1: string
@@ -248,7 +254,7 @@ const generateOrderID = (): number => {
  * console.log('Total Order Amount:', totalAmount); // e.g., 80 (10*2 + 20*3)
  */
 
-const calculateOrderTotal = (cart: cart[]): number => {
+const calculateOrderTotal = (cart: cart[], fees: fees): number => {
   let orderTotal = 0
 
   for (const item of cart) {
@@ -257,6 +263,11 @@ const calculateOrderTotal = (cart: cart[]): number => {
       orderTotal += itemTotal
     }
   }
+  //append fees to total
+  orderTotal += fees.service_fee
+  orderTotal += fees.standard_delivery
+  orderTotal += fees.processing_fee
+
   return orderTotal
 }
 

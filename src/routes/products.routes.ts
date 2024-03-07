@@ -13,18 +13,21 @@ import getProducts from '../utils/queries/getProducts'
  * @throws {Error} If there is an error during database query.
  *
  * @example
- * // GET /products
+ * // GET /vendors/vendor_id/products
  * // Returns an array of products from vendor 1.
  */
 
 export default function (router: Router, db: any) {
-  router.get('/products', async (_req: Request, res: Response) => {
-    try {
-      const response = await db.query(getProducts())
-      res.json(response.rows)
-    } catch (error) {
-      console.log(error)
-      return res.status(500).send(error)
+  router.get(
+    '/vendors/:vendor_id/products',
+    async (req: Request, res: Response) => {
+      try {
+        const response = await db.query(getProducts(req.params.vendor_id))
+        res.json(response.rows)
+      } catch (error) {
+        console.log(error)
+        return res.status(500).send(error)
+      }
     }
-  })
+  )
 }

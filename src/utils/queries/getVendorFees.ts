@@ -1,7 +1,7 @@
-const getVendorFees = () => {
+const getVendorFees = (vendor_id: string) => {
   return `SELECT *
     FROM vendor_fees vf
-      WHERE vf.vendor_id = 1
+      WHERE vf.vendor_id = ${vendor_id}
        ;`
 }
 

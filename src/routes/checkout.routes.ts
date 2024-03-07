@@ -36,12 +36,12 @@ export default function (router: Router, db: any) {
       try {
         let result
         const payload = _req.body
-        const { cart, customer_name } = payload
+        const { cart, customer_name, fees } = payload
         if (!cart || !customer_name) throw new Error('Payload is invalid')
         const isValid = await validateCartItems(cart, db)
         if (isValid) {
           const id: number = generateOrderID()
-          const total = calculateOrderTotal(cart)
+          const total = calculateOrderTotal(cart, fees)
 
           await orderRegistration({ id, customer_name, total }, db)
 
