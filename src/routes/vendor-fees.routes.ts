@@ -23,7 +23,7 @@ export default function (router: Router, db: any) {
     async (_req: Request, res: Response) => {
       try {
         const response = await db.query(getVendorFees(_req.params.vendor_id))
-        res.json(response.rows)
+        res.json(response.rows[0])
       } catch (error) {
         console.log(error)
         return res.status(500).send(error)
